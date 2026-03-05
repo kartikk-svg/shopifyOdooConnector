@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kartik's Store - Admin Products</title>
+  <link rel="stylesheet" href="/assets/store.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="/">Kartik's Store</a>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+        <a href="/cart" class="cart-pill">Cart (<span data-cart-count>0</span>)</a>
+        <a href="/admin/products">Admin Products</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page">
+    <h1 class="section-title">Product Admin (CRUD)</h1>
+    <p class="section-muted">Create, update, view, and delete storefront products. Each change triggers a webhook to Odoo.</p>
+    <section class="admin-layout">
+      <article class="card">
+        <h3 style="margin-top:0;">Add / Update Product</h3>
+        <form id="product-form">
+          <input type="hidden" id="product_id" name="product_id" />
+          <label for="title">Title</label>
+          <input id="title" name="title" required />
+          <label for="description">Description</label>
+          <textarea id="description" name="description" rows="3"></textarea>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div>
+              <label for="category">Category</label>
+              <input id="category" name="category" />
+            </div>
+            <div>
+              <label for="sku">SKU</label>
+              <input id="sku" name="sku" required />
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div>
+              <label for="price">Price</label>
+              <input id="price" name="price" type="number" min="1" step="0.01" required />
+            </div>
+            <div>
+              <label for="compare_at_price">Compare At Price</label>
+              <input id="compare_at_price" name="compare_at_price" type="number" min="0" step="0.01" />
+            </div>
+          </div>
+          <label for="image">Image URL</label>
+          <input id="image" name="image" />
+          <label style="display:flex;gap:8px;align-items:center;margin-top:10px;">
+            <input id="featured" name="featured" type="checkbox" style="width:auto;" />
+            Featured product
+          </label>
+          <div class="admin-actions" style="margin-top:12px;">
+            <button id="save-btn" type="submit">Create Product</button>
+            <button id="reset-btn" type="button" class="btn btn-outline">Reset</button>
+          </div>
+        </form>
+        <div id="admin-status" class="status-box">Ready.</div>
+      </article>
+
+      <article class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;">
+          <h3 style="margin:0;">Current Products</h3>
+          <input id="search-products-admin" type="text" placeholder="Search title / category / SKU" style="max-width:320px;" />
+        </div>
+        <div id="admin-products-list" class="admin-products-list"></div>
+      </article>
+    </section>
+  </main>
+
+  <script src="/assets/store-common.js"></script>
+  <script src="/assets/admin-products.js"></script>
+</body>
+</html>

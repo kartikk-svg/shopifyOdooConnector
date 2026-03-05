@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_shopify_instance_user,shopify.instance.user,model_shopify_instance,base.group_user,1,0,0,0
+access_shopify_product_mapping_user,shopify.product.mapping.user,model_shopify_product_mapping,base.group_user,1,0,0,0
+access_shopify_cart_mapping_user,shopify.cart.mapping.user,model_shopify_cart_mapping,base.group_user,1,0,0,0
+access_shopify_order_mapping_user,shopify.order.mapping.user,model_shopify_order_mapping,base.group_user,1,0,0,0
+access_shopify_instance_manager,shopify.instance.manager,model_shopify_instance,base.group_system,1,1,1,1
+access_shopify_product_mapping_manager,shopify.product.mapping.manager,model_shopify_product_mapping,base.group_system,1,1,1,1
+access_shopify_cart_mapping_manager,shopify.cart.mapping.manager,model_shopify_cart_mapping,base.group_system,1,1,1,1
+access_shopify_order_mapping_manager,shopify.order.mapping.manager,model_shopify_order_mapping,base.group_system,1,1,1,1
+access_shopify_webhook_event_user,shopify.webhook.event.user,model_shopify_webhook_event,base.group_user,1,0,0,0
+access_shopify_webhook_event_manager,shopify.webhook.event.manager,model_shopify_webhook_event,base.group_system,1,1,1,1

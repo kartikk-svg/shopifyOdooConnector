@@ -1,0 +1,12 @@
+# Odoo runtime data (often root-owned; do not commit)
+ShopifyOdooConnector/data/sessions/
+ShopifyOdooConnector/data/addons/
+ShopifyOdooConnector/data/filestore/
+
+# Common Odoo ignores
+*.pyc
+__pycache__/
+*.log
+.env
+.venv/
+node_modules/

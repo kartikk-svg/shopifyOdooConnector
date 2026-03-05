@@ -1,0 +1,38 @@
+Kartik's store - local setup and test flow
+
+1) Install app dependencies:
+   npm install
+
+2) Create env file:
+   cp .env.example .env
+   Edit .env and set SHOPIFY_WEBHOOK_SECRET to the same value used in Odoo Shopify instance.
+   Update ODOO_INSTANCE_ID to your Shopify Instance record ID from Odoo.
+
+3) Start local app:
+   npm start
+   Verify:
+   - http://127.0.0.1:3010/
+   - http://127.0.0.1:3010/health
+
+4) Odoo setup:
+   - Open Shopify Connector > Instances
+   - Set Name = Kartik's store
+   - Set webhook secret to same value as .env
+   - Click Register Webhooks
+
+5) Real-time webhook tests (local sender):
+   npm run send:webhook -- products/create
+   npm run send:webhook -- carts/update
+   npm run send:webhook -- orders/create
+
+6) Validate in Odoo:
+   - Product Mappings: new/updated product variant
+   - Cart Mappings: cart mapped to quotation
+   - Order Mappings: order mapped to sale order
+   - Sale: quotation/order created with lines
+   - Accounting: invoice created if enabled
+
+7) Fulfillment test:
+   - Confirm imported order (if not already auto-confirmed)
+   - Validate delivery in Inventory
+   - Connector pushes fulfillment update to Shopify

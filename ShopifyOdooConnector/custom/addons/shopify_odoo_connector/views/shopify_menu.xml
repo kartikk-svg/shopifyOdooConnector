@@ -1,0 +1,8 @@
+<odoo>
+    <menuitem id="menu_shopify_connector_root" name="Shopify Connector" sequence="40"/>
+    <menuitem id="menu_shopify_instances" name="Instances" parent="menu_shopify_connector_root" action="action_shopify_instance" sequence="10"/>
+    <menuitem id="menu_shopify_product_mapping" name="Product Mappings" parent="menu_shopify_connector_root" action="action_shopify_product_mapping" sequence="20"/>
+    <menuitem id="menu_shopify_cart_mapping" name="Cart Mappings" parent="menu_shopify_connector_root" action="action_shopify_cart_mapping" sequence="30"/>
+    <menuitem id="menu_shopify_order_mapping" name="Order Mappings" parent="menu_shopify_connector_root" action="action_shopify_order_mapping" sequence="40"/>
+    <menuitem id="menu_shopify_webhook_event" name="Webhook Events" parent="menu_shopify_connector_root" action="action_shopify_webhook_event" sequence="50"/>
+</odoo>

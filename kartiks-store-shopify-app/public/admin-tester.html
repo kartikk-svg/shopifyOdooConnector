@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kartik's Store - Admin Webhook Tester</title>
+  <link rel="stylesheet" href="/assets/store.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="/">Kartik's Store</a>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+        <a href="/cart" class="cart-pill">Cart (<span data-cart-count>0</span>)</a>
+        <a href="/admin/products">Admin Products</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page">
+    <h1 class="section-title">Webhook Admin Tester</h1>
+    <p class="section-muted">Use this page for manual event simulation while developing integration flows.</p>
+    <div class="split">
+      <section class="card">
+        <div style="display:grid;grid-template-columns:230px 1fr;gap:8px;">
+          <strong>App name</strong><span id="app_name">-</span>
+          <strong>Status</strong><span id="status">-</span>
+          <strong>Forward target</strong><span id="target">-</span>
+          <strong>Webhook secret configured</strong><span id="secret">-</span>
+        </div>
+        <label for="topic" style="margin-top:12px;">Webhook topic</label>
+        <select id="topic"></select>
+        <label for="payload">Custom payload (optional JSON)</label>
+        <textarea id="payload" rows="10" placeholder='Leave empty to use backend sample payload'></textarea>
+        <button id="send_btn" type="button" style="margin-top:12px;">Send test webhook</button>
+      </section>
+      <aside class="card">
+        <h3 style="margin-top:0;">Response</h3>
+        <pre id="response" style="margin:0;white-space:pre-wrap;word-break:break-word;background:#0f172a;color:#d6deeb;border-radius:8px;padding:12px;min-height:260px;">Waiting for request...</pre>
+      </aside>
+    </div>
+  </main>
+
+  <script src="/assets/store-common.js"></script>
+  <script src="/assets/admin-tester.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kartik's Store - Home</title>
+  <link rel="stylesheet" href="/assets/store.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="/">Kartik's Store</a>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+        <a href="/cart" class="cart-pill">Cart (<span data-cart-count>0</span>)</a>
+        <a href="/admin/products">Admin Products</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page">
+    <section class="hero">
+      <h1>Modern gadgets. Faster checkout. Real-time Odoo sync.</h1>
+      <p>Browse products, add them to cart, checkout with customer details, and push orders live to your Odoo connector using webhooks.</p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Featured Products</h2>
+      <p class="section-muted">Top picks from Kartik's store.</p>
+      <div id="featured-grid" class="product-grid"></div>
+      <div style="margin-top:14px;">
+        <a class="btn" href="/products">View All Products</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="/assets/store-common.js"></script>
+  <script src="/assets/home.js"></script>
+</body>
+</html>

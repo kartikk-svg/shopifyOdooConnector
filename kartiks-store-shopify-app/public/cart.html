@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kartik's Store - Cart</title>
+  <link rel="stylesheet" href="/assets/store.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="/">Kartik's Store</a>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+        <a href="/cart" class="cart-pill">Cart (<span data-cart-count>0</span>)</a>
+        <a href="/admin/products">Admin Products</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page">
+    <h1 class="section-title">Shopping Cart</h1>
+    <div class="split">
+      <section id="cart-list" class="cart-list"></section>
+      <aside class="card">
+        <h3 style="margin-top:0;">Order Summary</h3>
+        <div class="summary-row"><span>Subtotal</span><strong id="subtotal">₹0.00</strong></div>
+        <div class="summary-row"><span>Shipping</span><strong id="shipping">₹0.00</strong></div>
+        <div class="summary-row total"><span>Total</span><strong id="total">₹0.00</strong></div>
+        <a id="checkout-btn" class="btn" href="/checkout" style="margin-top:12px;display:inline-block;">Proceed to Checkout</a>
+      </aside>
+    </div>
+  </main>
+
+  <script src="/assets/store-common.js"></script>
+  <script src="/assets/cart.js"></script>
+</body>
+</html>

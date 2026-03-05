@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kartik's Store - Order Success</title>
+  <link rel="stylesheet" href="/assets/store.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="/">Kartik's Store</a>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+        <a href="/cart" class="cart-pill">Cart (<span data-cart-count>0</span>)</a>
+        <a href="/admin/products">Admin Products</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page">
+    <section class="success-box">
+      <h1 style="margin-top:0;">Order placed successfully 🎉</h1>
+      <p style="margin:0 0 6px;">Order: <strong id="order-name">N/A</strong></p>
+      <p style="margin:0 0 12px;">Total: <strong id="order-total">₹0.00</strong></p>
+      <p style="margin:0 0 14px;">Your order has been forwarded to Odoo through webhook integration.</p>
+      <a class="btn" href="/products">Continue Shopping</a>
+    </section>
+  </main>
+
+  <script src="/assets/store-common.js"></script>
+  <script src="/assets/order-success.js"></script>
+</body>
+</html>
