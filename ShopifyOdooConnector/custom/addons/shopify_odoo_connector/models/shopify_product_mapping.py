@@ -12,6 +12,8 @@ class ShopifyProductMapping(models.Model):
     shopify_variant_id = fields.Char(required=True, index=True)
     shopify_inventory_item_id = fields.Char(index=True)
     odoo_product_id = fields.Many2one("product.product", required=True, ondelete="cascade", index=True)
+    product_image = fields.Image(related="odoo_product_id.image_128", readonly=True)
+    product_image_1920 = fields.Image(related="odoo_product_id.image_1920", readonly=True)
     sku = fields.Char(index=True)
     last_synced_at = fields.Datetime(readonly=True)
 
