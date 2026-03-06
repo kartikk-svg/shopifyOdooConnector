@@ -207,6 +207,130 @@ Default login credentials:
 
 ---
 
+## Running the Shopify Storefront App (Local Development)
+
+The project includes a local Node.js storefront app (`kartiks-store-shopify-app`) that simulates a Shopify store. It provides a product catalog UI, cart, checkout, and forwards webhook events to Odoo — no live Shopify store required for development.
+
+### Step 1 — Install Node.js Dependencies
+
+```bash path=null start=null
+cd /var/www/html/shopifyConnector/kartiks-store-shopify-app
+npm install
+```
+
+### Step 2 — Configure the Environment
+
+```bash path=null start=null
+cp .env.example .env
+```
+
+Edit `.env` and set the values:
+
+```ini path=null start=null
+SHOPIFY_APP_NAME=Kartik's store
+SHOPIFY_WEBHOOK_SECRET=<same_secret_as_odoo_instance>
+ODOO_BASE_URL=http://127.0.0.1:8069
+ODOO_INSTANCE_ID=<your_shopify_instance_record_id>
+ODOO_WEBHOOK_URL=http://127.0.0.1:8069/shopify/webhook/<your_shopify_instance_record_id>
+PORT=3010
+```
+
+> **Important:** `SHOPIFY_WEBHOOK_SECRET` must match the **Webhook Secret** field in your Odoo Shopify Instance record. `ODOO_INSTANCE_ID` must match the database ID of that record.
+
+### Step 3 — Start the Storefront App
+
+```bash path=null start=null
+npm start
+```
+
+The app starts at: **http://127.0.0.1:3010**
+
+Verify it's running:
+- Home page: http://127.0.0.1:3010/
+- Health check: http://127.0.0.1:3010/health
+
+### Storefront Pages
+
+- `/` — Home page
+- `/products` — Product listing
+- `/product?id=<product_id>` — Single product detail
+- `/cart` — Shopping cart
+- `/checkout` — Checkout (creates order → forwards to Odoo)
+- `/order-success` — Order confirmation
+- `/admin/products` — Admin: manage products (add/edit/delete)
+- `/admin/tester` — Admin: manually fire webhook test events
+
+### Storefront API Endpoints
+
+- `GET /api/store/config` — Store configuration
+- `GET /api/store/products` — List all products (use `?featured=true` for featured only)
+- `GET /api/store/products/:id` — Single product
+- `POST /api/store/products` — Create a product (auto-forwards `products/create` webhook to Odoo)
+- `PUT /api/store/products/:id` — Update a product (auto-forwards `products/update` webhook to Odoo)
+- `DELETE /api/store/products/:id` — Delete a product (auto-forwards `products/delete` webhook to Odoo)
+- `POST /api/store/cart/sync` — Sync cart to Odoo via `carts/update` or `carts/delete` webhook
+- `POST /api/store/checkout` — Place an order (forwards `orders/create` webhook to Odoo)
+- `POST /api/test-webhook` — Fire any supported webhook topic manually
+- `POST /shopify/webhook` — Receives external webhooks, verifies HMAC, and forwards to Odoo
+
+### Sending Test Webhooks via CLI
+
+```bash path=null start=null
+# From the storefront app directory:
+npm run send:webhook -- products/create
+npm run send:webhook -- carts/update
+npm run send:webhook -- orders/create
+```
+
+This sends HMAC-signed payloads directly to the Odoo webhook endpoint.
+
+---
+
+## Running Both Projects Together
+
+You need **two terminal sessions** (or use `tmux`/`screen`):
+
+### Terminal 1 — Start Odoo
+
+```bash path=null start=null
+source /var/www/html/shopifyConnector/ShopifyOdooConnector/venv/bin/activate
+
+/var/www/html/shopifyConnector/ShopifyOdooConnector/odoo/odoo-bin \
+    -c /var/www/html/shopifyConnector/ShopifyOdooConnector/odoo.conf
+```
+
+Odoo runs at: **http://localhost:8069**
+
+### Terminal 2 — Start Shopify Storefront App
+
+```bash path=null start=null
+cd /var/www/html/shopifyConnector/kartiks-store-shopify-app
+npm start
+```
+
+Storefront runs at: **http://127.0.0.1:3010**
+
+### Quick Verification
+
+1. Open http://localhost:8069 and log in to Odoo.
+2. Go to **Shopify Connector → Instances** and create/open your instance.
+3. Set the **Local Storefront Base URL** to `http://127.0.0.1:3010`.
+4. Set the **Webhook Secret** to the same value as `SHOPIFY_WEBHOOK_SECRET` in the storefront `.env`.
+5. Click **Test Connection** — should show "Local storefront connection successful".
+6. Click **Register Webhooks** — registers the callback URL.
+7. Open http://127.0.0.1:3010/products in a browser — browse the storefront.
+8. Add a product to the cart and go through checkout — the order will appear in Odoo under **Shopify Connector → Order Mappings** and **Sales → Orders**.
+
+### End-to-End Test Flow
+
+1. **Product Sync:** Click **Import Products** in the Odoo instance form, or create/update a product on the storefront admin page (`/admin/products`). The product webhook is forwarded to Odoo automatically.
+2. **Cart Sync:** Add items to the storefront cart. The cart webhook (`carts/update`) is sent to Odoo, creating a draft quotation.
+3. **Order Creation:** Complete checkout on the storefront. The `orders/create` webhook fires, creating a confirmed sale order in Odoo (with auto-invoice if enabled).
+4. **Fulfillment:** In Odoo, validate the delivery order. The connector automatically pushes a fulfillment update back to Shopify.
+5. **Webhook Tester:** Use `/admin/tester` on the storefront to fire any webhook topic on demand.
+
+---
+
 ## Configuring the Shopify Connector
 
 ### Step 1 — Open the Connector
